@@ -30,7 +30,7 @@ foreach(
 endforeach()
 
 find_package(Threads REQUIRED)
-target_link_libraries(sqlite3 PUBLIC Threads::Threads)
+target_link_libraries(sqlite3 PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 
 # Installation (https://github.com/forexample/package-example) {
 
