@@ -35,6 +35,9 @@ target_link_libraries(sqlite3 PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 set(pc_config "${CMAKE_CURRENT_BINARY_DIR}/sqlite3.pc")
 configure_file(sqlite3.pc.in ${pc_config} @ONLY)
 
+set(la_config "${CMAKE_CURRENT_BINARY_DIR}/libsqlite3.la")
+configure_file(libsqlite3.la.in ${la_config} @ONLY)
+
 # Installation (https://github.com/forexample/package-example) {
 
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
@@ -90,5 +93,6 @@ install(
 )
 
 install(FILES ${pc_config} DESTINATION lib/pkgconfig)
+install(FILES ${la_config} DESTINATION lib)
 
 # }
