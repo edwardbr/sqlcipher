@@ -7,5 +7,5 @@ Name: SQLite
 Description: SQL database engine
 Version: @PROJECT_VERSION@
 Libs: -L${libdir} -lsqlite3
-Libs.private: -ldl -lpthread
+Libs.private: -ldl @pthread_to_config@
 Cflags: -I${includedir}
