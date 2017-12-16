@@ -32,6 +32,9 @@ endforeach()
 find_package(Threads REQUIRED)
 target_link_libraries(sqlite3 PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 
+set(pc_config "${CMAKE_CURRENT_BINARY_DIR}/sqlite3.pc")
+configure_file(sqlite3.pc.in ${pc_config} @ONLY)
+
 # Installation (https://github.com/forexample/package-example) {
 
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
@@ -85,5 +88,7 @@ install(
     NAMESPACE "${namespace}"
     DESTINATION "${config_install_dir}"
 )
+
+install(FILES ${pc_config} DESTINATION lib/pkgconfig)
 
 # }
