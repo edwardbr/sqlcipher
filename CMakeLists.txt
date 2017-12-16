@@ -32,6 +32,12 @@ endforeach()
 find_package(Threads REQUIRED)
 target_link_libraries(sqlite3 PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 
+if(ANDROID)
+  set(pthread_to_config "")
+else()
+  set(pthread_to_config "-lpthread")
+endif()
+
 set(pc_config "${CMAKE_CURRENT_BINARY_DIR}/sqlite3.pc")
 configure_file(sqlite3.pc.in ${pc_config} @ONLY)
 
