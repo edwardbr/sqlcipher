@@ -29,6 +29,9 @@ foreach(
   endif()
 endforeach()
 
+find_package(Threads REQUIRED)
+target_link_libraries(sqlite3 PUBLIC Threads::Threads)
+
 # Installation (https://github.com/forexample/package-example) {
 
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
