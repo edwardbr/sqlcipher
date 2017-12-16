@@ -12,7 +12,7 @@ old_library='libsqlite3.a'
 # Linker flags that can not go in dependency_libs.
 inherited_linker_flags=''
 # Libraries that this one depends upon.
-dependency_libs=' -L@CMAKE_INSTALL_PREFIX@/lib -ldl -lpthread'
+dependency_libs=' -L@CMAKE_INSTALL_PREFIX@/lib -ldl @pthread_to_config@'
 # Names of additional weak libraries provided by this library
 weak_library_names=''
 # Version information for libsqlite3.
