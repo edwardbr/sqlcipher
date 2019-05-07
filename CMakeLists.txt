@@ -10,6 +10,8 @@ option(SQLITE_ENABLE_STAT4 "FIXME Description" ON)
 option(SQLITE_SOUNDEX "FIXME Description" ON)
 option(SQLITE_USE_URI "FIXME Description" ON)
 
+add_definitions(-DSQLITE_HAS_CODEC -DSQLITE_THREADSAFE=1)
+
 set(headers sqlite3ext.h sqlite3.h)
 add_library(sqlite3 sqlite3.c ${headers})
 
