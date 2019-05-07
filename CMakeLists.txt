@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.2)
-project(sqlite3 VERSION 3.27.2)
+cmake_minimum_required(VERSION 3.10.2)
+project(SQLCipher VERSION 3.27.2)
 
 option(SQLITE_ENABLE_COLUMN_METADATA "FIXME Description" ON)
 option(SQLITE_ENABLE_FTS4  "FIXME Description" ON)
@@ -12,8 +12,9 @@ option(SQLITE_USE_URI "FIXME Description" ON)
 
 add_definitions(-DSQLITE_HAS_CODEC -DSQLITE_THREADSAFE=1)
 
-set(headers sqlite3ext.h sqlite3.h)
-add_library(sqlite3 sqlite3.c ${headers})
+set(headers include/sqlcipher/sqlite3ext.h include/sqlcipher/sqlite3.h)
+add_library(SQLCipher sqlite3.c ${headers})
+add_library(SQLCipher::SQLCipher ALIAS SQLCipher)
 
 foreach(
     x
@@ -27,17 +28,26 @@ foreach(
     SQLITE_USE_URI
 )
   if(${x})
-    target_compile_definitions(sqlite3 PRIVATE ${x})
+    target_compile_definitions(SQLCipher PRIVATE ${x})
   endif()
 endforeach()
 
 find_package(Threads REQUIRED)
-target_link_libraries(sqlite3 PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
-
+target_link_libraries(SQLCipher PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 if(ANDROID)
-  set(pthread_to_config "")
+    target_link_libraries(${PROJECT_NAME} 
+                            PRIVATE 
+                                ssl crypto
+                                )
 else()
-  set(pthread_to_config "-lpthread")
+    find_package(OpenSSL REQUIRED)
+    add_definitions(${OPENSSL_DEFINITIONS})
+    message(STATUS "OpenSSL: " ${OPENSSL_VERSION})
+    include_directories(${OPENSSL_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} 
+                        PRIVATE 
+                            ${OPENSSL_LIBRARIES}
+                            )
 endif()
 
 set(pc_config "${CMAKE_CURRENT_BINARY_DIR}/sqlite3.pc")
@@ -76,7 +86,7 @@ configure_package_config_file(
 )
 
 install(
-    TARGETS sqlite3
+    TARGETS SQLCipher
     EXPORT "${TARGETS_EXPORT_NAME}"
     LIBRARY DESTINATION "lib"
     ARCHIVE DESTINATION "lib"
