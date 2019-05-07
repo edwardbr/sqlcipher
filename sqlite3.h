@@ -125,7 +125,7 @@ extern "C" {
 */
 #define SQLITE_VERSION        "3.27.2"
 #define SQLITE_VERSION_NUMBER 3027002
-#define SQLITE_SOURCE_ID      "2019-02-25 16:06:06 bd49a8271d650fa89e446b42e513b595a717b9212c91dd384aab871fc1d0f6d7"
+#define SQLITE_SOURCE_ID      "2019-02-25 16:06:06 bd49a8271d650fa89e446b42e513b595a717b9212c91dd384aab871fc1d0alt1"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
@@ -5567,6 +5567,22 @@ SQLITE_API int sqlite3_key_v2(
 **
 ** The code to implement this API is not available in the public release
 ** of SQLite.
+*/
+/* BEGIN SQLCIPHER
+   SQLCipher usage note:
+
+   If the current database is plaintext SQLCipher will NOT encrypt it.
+   If the current database is encrypted and pNew==0 or nNew==0, SQLCipher
+   will NOT decrypt it.
+
+   This routine will ONLY work on an already encrypted database in order
+   to change the key.
+
+   Conversion from plaintext-to-encrypted or encrypted-to-plaintext should
+   use an ATTACHed database and the sqlcipher_export() convenience function
+   as per the SQLCipher Documentation.
+
+   END SQLCIPHER
 */
 SQLITE_API int sqlite3_rekey(
   sqlite3 *db,                   /* Database to be rekeyed */
