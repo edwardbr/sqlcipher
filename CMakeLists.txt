@@ -85,30 +85,30 @@ configure_package_config_file(
     INSTALL_DESTINATION "${config_install_dir}"
 )
 
-install(
-    TARGETS SQLCipher
-    EXPORT "${TARGETS_EXPORT_NAME}"
-    LIBRARY DESTINATION "lib"
-    ARCHIVE DESTINATION "lib"
-    RUNTIME DESTINATION "bin"
-    INCLUDES DESTINATION "${include_install_dir}"
-)
+#install(
+#    TARGETS SQLCipher
+#    EXPORT "${TARGETS_EXPORT_NAME}"
+#    LIBRARY DESTINATION "lib"
+#    ARCHIVE DESTINATION "lib"
+#    RUNTIME DESTINATION "bin"
+#    INCLUDES DESTINATION "${include_install_dir}"
+#)
 
-install(
-    FILES ${headers}
-    DESTINATION "${include_install_dir}"
-)
+#install(
+#    FILES ${headers}
+#    DESTINATION "${include_install_dir}"
+#)
 
-install(
-    FILES "${project_config}" "${version_config}"
-    DESTINATION "${config_install_dir}"
-)
+#install(
+#    FILES "${project_config}" "${version_config}"
+#    DESTINATION "${config_install_dir}"
+#)
 
-install(
-    EXPORT "${TARGETS_EXPORT_NAME}"
-    NAMESPACE "${namespace}"
-    DESTINATION "${config_install_dir}"
-)
+#install(
+#    EXPORT "${TARGETS_EXPORT_NAME}"
+#    NAMESPACE "${namespace}"
+#    DESTINATION "${config_install_dir}"
+#)
 
 install(FILES ${pc_config} DESTINATION lib/pkgconfig)
 install(FILES ${la_config} DESTINATION lib)
