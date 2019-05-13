@@ -34,21 +34,15 @@ endforeach()
 
 find_package(Threads REQUIRED)
 target_link_libraries(sqlcipher PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
-if(ANDROID)
-    target_link_libraries(${PROJECT_NAME} 
-                            PRIVATE 
-                                ssl crypto
-                                )
-else()
-    find_package(OpenSSL REQUIRED)
-    add_definitions(${OPENSSL_DEFINITIONS})
-    message(STATUS "OpenSSL: " ${OPENSSL_VERSION})
-    include_directories(${OPENSSL_INCLUDE_DIR})
-    target_link_libraries(${PROJECT_NAME} 
-                        PRIVATE 
-                            ${OPENSSL_LIBRARIES}
-                            )
-endif()
+
+find_package(OpenSSL REQUIRED)
+add_definitions(${OPENSSL_DEFINITIONS})
+message(STATUS "OpenSSL: " ${OPENSSL_VERSION})
+include_directories(${OPENSSL_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} 
+                    PRIVATE 
+                        ${OPENSSL_LIBRARIES}
+                        )
 
 set(pc_config "${CMAKE_CURRENT_BINARY_DIR}/sqlite3.pc")
 configure_file(sqlite3.pc.in ${pc_config} @ONLY)
