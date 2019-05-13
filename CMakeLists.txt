@@ -1,4 +1,16 @@
 cmake_minimum_required(VERSION 3.10.2)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
+include(HunterGate)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.23.165.tar.gz"
+    SHA1 "5a73f91df5f6109c0bb1104d0c0ee423f7bece79"
+    LOCAL
+)
+
+
 project(sqlcipher VERSION 3.27.2)
 
 option(SQLITE_ENABLE_COLUMN_METADATA "FIXME Description" ON)
@@ -35,8 +47,9 @@ endforeach()
 find_package(Threads REQUIRED)
 target_link_libraries(sqlcipher PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 
+hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
-target_link_libraries(OpenSSL PUBLIC ${OPENSSL_LIBRARIES})
+target_link_libraries(sqlcipher PUBLIC ${OPENSSL_LIBRARIES})
 
 if(ANDROID)
   set(pthread_to_config "")
