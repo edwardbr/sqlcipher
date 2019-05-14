@@ -49,7 +49,7 @@ target_link_libraries(sqlcipher PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
 
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
-target_link_libraries(sqlcipher PUBLIC ssl crypto)
+target_link_libraries(sqlcipher PUBLIC OpenSSL::SSL OpenSSL::Crypto)
 
 if(ANDROID)
   set(pthread_to_config "")
