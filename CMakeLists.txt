@@ -103,7 +103,7 @@ install(
 
 install(
     FILES ${headers}
-    DESTINATION "${include_install_dir}"
+    DESTINATION "${include_install_dir}/sqlcipher"
 )
 
 install(
