@@ -22,7 +22,7 @@ option(SQLITE_ENABLE_STAT4 "FIXME Description" ON)
 option(SQLITE_SOUNDEX "FIXME Description" ON)
 option(SQLITE_USE_URI "FIXME Description" ON)
 
-add_definitions(-DSQLITE_HAS_CODEC -DSQLITE_THREADSAFE=1)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSQLITE_HAS_CODEC -DSQLITE_THREADSAFE=1 -DSQLITE_TEMPSTORE=2")
 
 set(headers include/sqlcipher/sqlite3ext.h include/sqlcipher/sqlite3.h)
 add_library(sqlcipher sqlite3.c ${headers})
